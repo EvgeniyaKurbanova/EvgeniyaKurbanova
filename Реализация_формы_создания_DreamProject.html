@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamProject</title>
+<style>
+  /* Добавим немного стилей для красивого отображения формы */
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  label {
+    font-weight: bold;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+.info-message {
+    color: yellow;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Создание DreamProject</h2>
+  <form action="#" method="post">
+    <label for="dream_name">Название DreamProject:</label><br>
+    <input type="text" id="dream_name" name="dream_name" placeholder="Введите название сновидения" required minlength="5" maxlength="50"><br>
+    <div id="dream_name_error" class="error-message"></div>
+    
+    <label for="dream_description">Описание сновидения:</label><br>
+    <textarea id="dream_description" name="dream_description" placeholder="Введите описание сновидения" rows="4" required minlength="5" maxlength="1000"></textarea><br>
+    <div id="dream_description_error" class="error-message"></div>
+    
+    <label for="min_payment">Денежный взнос:</label><br>
+    <input type="number" id="min_payment" name="min_payment" placeholder="От 10000 р" required min="10000"><br>
+    <div id="min_payment_error" class="error-message"></div>
+    
+    <label for="dream_form">Желаемая форма воплощения:</label><br>
+    <select id="dream_form" name="dream_form" onchange="showOtherOption()" required>
+      <option value="">Выберите</option>
+      <option value="installation">Инсталляция</option>
+      <option value="movie">Фильм</option>
+      <option value="architectural_object">Архитектурный объект</option>
+      <option value="literary_work">Литературное произведение</option>
+      <option value="musical_composition">Музыкальная композиция</option>
+      <option value="virtual_reality">Виртуальная реальность</option>
+      <option value="interactive_project">Интерактивный проект</option>
+      <option value="theatrical_performance">Театральное представление</option>
+      <option value="digital_art">Цифровой арт</option>
+      <option value="computer_game">Компьютерная игра</option>
+      <option value="other">Другое</option>
+    <!-- Добавьте другие варианты здесь -->
+    </select><br>
+
+    <div id="other_option_container" style="display: none;">
+      <label for="other_option">Другое:</label><br>
+      <input type="text" id="other_option" name="other_option" placeholder="Введите другую форму воплощения" required minlength="5" maxlength="100"><br>
+      <div id="other_option_error" class="error-message"></div>
+    </div>
+    
+    <label for="timeframe">Сроки реализации:</label><br>
+    <select id="timeframe" name="timeframe" required>
+      <option value="">Выберите</option>
+      <option value="1_month">1 месяц</option>
+      <option value="2_month">2 месяца</option>
+      <option value="3_month">3 месяца</option>
+      <option value="4_month">4 месяца</option>
+      <option value="5_month">5 месяцев</option>
+      <option value="6_month">6 месяцев</option>
+      <option value="7_month">7 месяцев</option>
+      <option value="8_month">8 месяцев</option>
+      <option value="9_month">9 месяцев</option>
+      <option value="10_month">10 месяцев</option>
+      <option value="11_month">11 месяцев</option>
+      <option value="1_year">1 год</option>
+      <!-- Добавьте другие варианты здесь -->
+    </select><br>
+    <div id="timeframe_error" class="error-message"></div>
+    
+    <label for="name">Имя:</label><br>
+    <input type="text" id="name" name="name" placeholder="Введите ваше имя" required minlength="2" maxlength="20"><br>
+    <div id="name_error" class="error-message"></div>
+    
+    <label for="email">Электронная почта:</label><br>
+    <input type="email" id="email" name="email" placeholder="Введите вашу электронную почту" required minlength="5" maxlength="20"><br>
+    <div id="email_error" class="error-message"></div>
+    
+    <label for="phone">Телефон:</label><br>
+    <input type="tel" id="phone" name="phone" placeholder="Введите ваш номер телефона" required minlength="10" maxlength="12"><br>
+    <div id="phone_error" class="error-message"></div>
+    
+    <input type="submit" value="Воплотить">
+  </form>
+</div>
+
+<script>
+function showOtherOption() {
+  var selectBox = document.getElementById("dream_form");
+  var otherOptionContainer = document.getElementById("other_option_container");
+  var otherOptionInput = document.getElementById("other_option");
+  if (selectBox.value === "other") {
+    otherOptionContainer.style.display = "block";
+    otherOptionInput.setAttribute("required", "true");
+  } else {
+    otherOptionContainer.style.display = "none";
+    otherOptionInput.removeAttribute("required");
+  }
+}
+
+function validateField(input, errorElement) {
+  if (!input.checkValidity()) {
+    input.style.borderColor = "red";
+    errorElement.textContent = input.validationMessage;
+  } else {
+    input.style.borderColor = "#ccc";
+    errorElement.textContent = "";
+  }
+}
+
+document.querySelectorAll("input, select, textarea").forEach(function(input) {
+  input.addEventListener("blur", function() {
+    var errorElementId = input.id + "_error";
+    var errorElement = document.getElementById(errorElementId);
+    validateField(input, errorElement);
+  });
+});
+</script>
+
+</body>
+</html>
